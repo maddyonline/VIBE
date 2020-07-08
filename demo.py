@@ -327,9 +327,11 @@ def main(args):
         save_name = os.path.join(output_path, save_name)
         print(f'Saving result video to {save_name}')
         images_to_video(img_folder=output_img_folder, output_vid_file=save_name)
+    if not args.keep:
         shutil.rmtree(output_img_folder)
 
-    shutil.rmtree(image_folder)
+    if not args.keep:
+        shutil.rmtree(image_folder)
     print('================= END =================')
 
 
@@ -365,6 +367,9 @@ if __name__ == '__main__':
 
     parser.add_argument('--run_smplify', action='store_true',
                         help='run smplify for refining the results, you need pose tracking to enable it')
+
+    parser.add_argument('--keep', action='store_true',
+                        help='should keep the images folder')
 
     parser.add_argument('--no_render', action='store_true',
                         help='disable final rendering of output video.')
